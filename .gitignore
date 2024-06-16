@@ -9,7 +9,7 @@
 # testing
 /coverage
 /example
-*.tgz
+*.tgzw
 
 # production
 /build

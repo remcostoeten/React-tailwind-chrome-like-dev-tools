@@ -7,6 +7,7 @@ import TabToggle from "./test-components/TabToggle";
 import Wrapper from "./test-components/Wrapper";
 import DemPageTwo from "./test-components/demo-page two";
 import DemoPage from "./test-components/demo-page";
+import DebugTool from "./components/DebugTool";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
 
   return (
     <>
+    <DebugTool/>
       <Toaster />
       <Wrapper>
         {" "}
