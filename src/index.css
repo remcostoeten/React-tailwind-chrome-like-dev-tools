@@ -42,3 +42,47 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.thunder {
+  animation: thunderFlicker 1s infinite;
+}
+
+
+@keyframes thunderFlicker {
+  0%, 100% {
+    fill: #292929; /* Default color, dark gray */
+    opacity: 1;
+  }
+  10% {
+    fill: #ffaa00; /* Bright orange */
+    opacity: 0.3;
+  }
+  20% {
+    fill: #ff9a00; /* Slightly darker orange */
+    opacity: 1;
+  }
+  30% {
+    fill: #ff8300; /* Even darker orange */
+    opacity: 0.5;
+  }
+  40% {
+    fill: #0a4ecb; /* Thunder color, deep blue */
+    opacity: 0.7;
+  }
+  50% {
+    fill: #ffaa00; /* Back to bright orange */
+    opacity: 0.9;
+  }
+  60%, 70% {
+    fill: #292929; /* Back to default color for a moment */
+    opacity: 1;
+  }
+  80% {
+    fill: #ff8300; /* Dark orange for deep impact */
+    opacity: 0.4;
+  }
+  90% {
+    fill: #0a4ecb; /* Deep blue for the final flicker */
+    opacity: 0.6;
+  }
+}

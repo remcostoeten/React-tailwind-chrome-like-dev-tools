@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from 'react';
-
+import { toast } from 'sonner';
+import { PowerOnIcon } from './icons';
 const DebugTool: React.FC = () => {
   const [toolActive, setToolActive] = useState(false);
   const [hoveredElement, setHoveredElement] = useState<HTMLElement | null>(null);
   const [selectedElement, setSelectedElement] = useState<HTMLElement | null>(null);
+  const [tailwindClasses, setTailwindClasses] = useState('');
 
   useEffect(() => {
     const handleKeydown = (event: KeyboardEvent) => {
       if (event.shiftKey && event.key === 'X') {
         setToolActive(prev => !prev);
-      }
+        toast('Debugger turned on', {
+            className: 'my-classname',
+            description: 'Turn off the debugger by pressing Shift + X again.',
+            duration: 5000,
+            icon: <PowerOnIcon />,
+          });      }
     };
 
     document.addEventListener('keydown', handleKeydown);
@@ -29,6 +36,7 @@ const DebugTool: React.FC = () => {
         event.stopPropagation(); // Prevent click events from propagating to other elements
         const target = event.target as HTMLElement;
         setSelectedElement(target);
+        setTailwindClasses(target.className); // Set initial classes to current element's classes
       };
 
       document.addEventListener('mousemove', handleMousemove);
@@ -38,9 +46,20 @@ const DebugTool: React.FC = () => {
         document.removeEventListener('click', handleClick);
         setHoveredElement(null);
         setSelectedElement(null);
+        setTailwindClasses(''); // Reset classes on tool deactivate
       };
     }
   }, [toolActive]);
+
+  const handleClassChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTailwindClasses(event.target.value);
+  };
+
+  const applyClasses = () => {
+    if (selectedElement) {
+      selectedElement.className = tailwindClasses;
+    }
+  };
 
   return (
     <>
@@ -90,6 +109,24 @@ const DebugTool: React.FC = () => {
             }}
           >
             {selectedElement.tagName.toLowerCase()}.{Array.from(selectedElement.classList).join('.')}
+          </div>
+          <div
+            className="fixed z-50 p-2 text-black bg-white rounded"
+            style={{
+              top: `${selectedElement.getBoundingClientRect().bottom + 5}px`,
+              left: `${selectedElement.getBoundingClientRect().left}px`,
+            }}
+          >
+            <input
+              type="text"
+              value={tailwindClasses}
+              onChange={handleClassChange}
+              placeholder="Enter Tailwind classes"
+              className="p-1 border"
+            />
+            <button onClick={applyClasses} className="p-1 ml-2 text-white bg-blue-500 rounded">
+              Apply
+            </button>
           </div>
         </>
       )}
