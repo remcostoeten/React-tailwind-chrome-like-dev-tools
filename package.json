@@ -16,7 +16,8 @@
     "dev": "microbundle watch",
     "build": "rm -rf dist && microbundle",
     "build:docs": "BUILD_PATH='./docs' react-scripts build",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "format": "prettier --write ."
   },
   "files": [
     "dist"
@@ -63,5 +64,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "dependencies": {
+    "sonner": "^1.5.0"
   }
 }
